@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PharmaFinder – Developer Portfolio Showcase</title>
+  <style>
+    /* =====================================================
+       PharmaFinder – Developer Portfolio Showcase
+       Fixed 1066 x 930 stage, scaled to fit by JavaScript
+       ===================================================== */
+
+    :root {
+      --bg: #efebe4;
+      --blue: #2f55f4;
+      --arc: #b3bccd;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
+    body {
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Scaling wrapper + stage */
+    .showcase { position: relative; width: 1066px; height: 930px; }
+    .stage {
+      position: absolute;
+      top: 0; left: 0;
+      width: 1066px; height: 930px;
+      background: var(--bg);
+      transform-origin: top left;
+      overflow: hidden;
+    }
+
+    /* Decorative arcs and blue shape */
+    .rings { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .rings path {
+      fill: none;
+      stroke: var(--arc);
+      stroke-width: 1.6;
+      stroke-linecap: round;
+    }
+    .blue-shape {
+      position: absolute;
+      inset: 0;
+      background: var(--blue);
+      clip-path: polygon(553px 52px, 845px 210px, 452px 900px, 253px 883px);
+    }
+
+    /* Window frames and images */
+    .window {
+      position: absolute;
+      overflow: hidden;
+      transform-origin: 0 0;
+    }
+    .window img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* BACK window – left side closer, top edge slopes DOWN to the right */
+    .code-window {
+      left: 86px; top: 120px;
+      width: 644px; height: 510px;
+      background: #181b22;
+      border-radius: 20px;
+      box-shadow: 0 30px 70px rgba(10, 12, 20, .35);
+      transform: matrix3d(1.181049,0.180808,0,0.00037875,-0.070735,0.970298,0,-0.00007333,0,0,1,0,38,-2,0,1);
+    }
+
+    /* FRONT window – right side closer, top edge slopes UP to the right */
+    .dash-window {
+      left: 196px; top: 296px;
+      width: 806px; height: 516px;
+      background: #fbfbfa;
+      border-radius: 24px;
+      box-shadow: 0 34px 70px rgba(30, 34, 50, .22), 0 2px 6px rgba(30, 34, 50, .06);
+      transform: matrix3d(0.851656,-0.069820,0,-0.00011239,-0.058338,0.855736,0,-0.00009911,0,0,1,0,32,49,0,1);
+    }
+    .dash-window img { object-fit: contain; }
+  </style>
+</head>
+<body>
+
+  <!-- The whole composition is scaled so it fits any screen -->
+  <div class="showcase" id="showcase">
+    <div class="stage" id="stage">
+
+      <!-- Background decor: two thin circle arcs (top-right + bottom-left) -->
+      <svg class="rings" viewBox="0 0 1066 930" aria-hidden="true">
+        <path d="M800 169 A322 322 0 0 1 1008 580"/>
+        <path d="M35 560 A226 226 0 0 0 262 856"/>
+      </svg>
+
+      <!-- Blue shape (wider at the top, narrower at the bottom) -->
+      <div class="blue-shape"></div>
+
+      <!-- BACK WINDOW: code screenshot -->
+      <div class="window code-window">
+        <img src="images/image2.png" alt="Code editor screenshot">
+      </div>
+
+      <!-- FRONT WINDOW: dashboard screenshot -->
+      <div class="window dash-window">
+        <img src="images/image1.jpeg" alt="PharmaFinder dashboard screenshot">
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Scale the fixed 1066 x 930 stage so it fits any screen.
+    const STAGE_W = 1066;
+    const STAGE_H = 930;
+
+    const showcase = document.getElementById('showcase');
+    const stage = document.getElementById('stage');
+
+    function fitStage() {
+      const scale = Math.min(window.innerWidth / STAGE_W, window.innerHeight / STAGE_H);
+      stage.style.transform = `scale(${scale})`;
+      showcase.style.width = STAGE_W * scale + 'px';
+      showcase.style.height = STAGE_H * scale + 'px';
+    }
+
+    window.addEventListener('resize', fitStage);
+    fitStage();
+  </script>
+</body>
+</html>

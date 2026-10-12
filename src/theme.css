@@ -1,0 +1,757 @@
+/*
+ * Bless portfolio theme layer
+ *
+ * This file is intentionally additive: the light theme remains the existing
+ * editorial palette, while dark mode is opt-in through html[data-theme="dark"].
+ */
+
+:root {
+  color-scheme: light;
+  --paper: #f5f3ed;
+  --ink: #15171d;
+  --muted: #686b73;
+  --blue: #315cff;
+  --line: #d9d9d3;
+  --dark: #17191f;
+  --surface: #fffaf2;
+  --surface-soft: #eeece5;
+  --header-bg: color-mix(in srgb, var(--paper) 100%, transparent);
+}
+
+html {
+  color-scheme: light;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+body {
+  color: var(--ink);
+  background: var(--paper);
+}
+
+/* Keep theme changes calm without touching transform/animation timings. */
+html.theme-transitioning,
+html.theme-transitioning body {
+  background-color: var(--paper);
+}
+
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition-property:
+    color, background-color, border-color, box-shadow, fill, stroke !important;
+  transition-duration: 650ms !important;
+  transition-timing-function: ease !important;
+}
+
+::selection {
+  background: var(--blue);
+  color: white;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #10131b;
+  --ink: #edece6;
+  --muted: #a7abb8;
+  --blue: #8096ff;
+  --line: #313746;
+  --dark: #10131b;
+  --surface: #202431;
+  --surface-soft: #191d27;
+  --header-bg: color-mix(in srgb, var(--paper) 84%, transparent);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+html[data-theme="dark"] body {
+  color: var(--ink);
+  background: var(--paper);
+}
+
+html[data-theme="dark"] ::selection {
+  background: var(--blue);
+  color: #10131b;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Header and theme control                                                    */
+/* -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .site-header {
+  background: var(--header-bg);
+  border-bottom-color: color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+html[data-theme="dark"] .wordmark,
+html[data-theme="dark"] .menu-toggle,
+html[data-theme="dark"] .nav-link,
+html[data-theme="dark"] .nav-links,
+html[data-theme="dark"] .wordmark-role {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .wordmark-slash {
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+}
+
+html[data-theme="dark"] .wordmark-role,
+html[data-theme="dark"] .nav-links,
+html[data-theme="dark"] .nav-link {
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+html[data-theme="dark"] .wordmark-avatar {
+  border-color: color-mix(in srgb, var(--ink) 20%, transparent);
+  background: #202431;
+}
+
+html[data-theme="dark"] .nav-link:hover,
+html[data-theme="dark"] .nav-link.active {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .nav-contact {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--ink) 24%, transparent);
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+}
+
+html[data-theme="dark"] .status-dot {
+  background: var(--blue);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 22%, transparent);
+}
+
+html[data-theme="dark"] .nav-links {
+  background: var(--paper);
+  border-bottom-color: var(--line);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.24);
+}
+
+html[data-theme="dark"] .nav-links > a {
+  border-bottom-color: var(--line);
+}
+
+/* Compatible with either a button class or a data-theme-toggle attribute. */
+.theme-toggle,
+.theme-toggle-button,
+[data-theme-toggle] {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .theme-toggle,
+html[data-theme="dark"] .theme-toggle-button,
+html[data-theme="dark"] [data-theme-toggle] {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--ink) 25%, transparent);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Hero                                                                       */
+/* -------------------------------------------------------------------------- */
+
+.hero.hero-motion {
+  --hero-ink: var(--ink);
+  --hero-blue: var(--blue);
+}
+
+html[data-theme="dark"] .hero-intro,
+html[data-theme="dark"] .hero-meta-left,
+html[data-theme="dark"] .hero-scroll-cue,
+html[data-theme="dark"] .hero-scroll-cue svg,
+html[data-theme="dark"] .hero-side-copy,
+html[data-theme="dark"] .hero-side-copy p,
+html[data-theme="dark"] .hero-callout {
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+html[data-theme="dark"] .eyebrow {
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+html[data-theme="dark"] .hero-meta-row {
+  border-top-color: color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+html[data-theme="dark"] .hero-line,
+html[data-theme="dark"] .side-rule {
+  background: color-mix(in srgb, var(--ink) 42%, transparent);
+}
+
+html[data-theme="dark"] .hero.hero-motion .hero-work-cta {
+  color: var(--hero-ink);
+  border-bottom-color: color-mix(in srgb, var(--ink) 48%, transparent);
+}
+
+html[data-theme="dark"] .hero.hero-motion .hero-work-cta:hover {
+  color: var(--hero-blue);
+  border-bottom-color: var(--hero-blue);
+}
+
+html[data-theme="dark"] .hero.hero-motion .rings path {
+  stroke: color-mix(in srgb, #aeb9d9 66%, transparent);
+}
+
+html[data-theme="dark"] .hero.hero-motion .orbit-dot {
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--blue) 72%, transparent));
+}
+
+/* The code and dashboard panels are product imagery; they are deliberately not inverted. */
+html[data-theme="dark"] .hero .code-window,
+html[data-theme="dark"] .hero .dash-window,
+html[data-theme="dark"] .hero .window img {
+  filter: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Shared work/readout elements                                                */
+/* -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .section-heading h2 em,
+html[data-theme="dark"] .about-heading h2 em,
+html[data-theme="dark"] .contact-inner h2 em,
+html[data-theme="dark"] .journal-heading h2 em,
+html[data-theme="dark"] .journal-page h3 em,
+html[data-theme="dark"] .lab-head h2 em {
+  color: #858b9c;
+}
+
+html[data-theme="dark"] .gallery-stage::before {
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--blue) 18%, transparent),
+    transparent 62%
+  );
+}
+
+html[data-theme="dark"] .gallery-card-visual {
+  border-color: color-mix(in srgb, var(--ink) 12%, transparent);
+  box-shadow: 0 26px 50px rgba(0, 0, 0, 0.34);
+}
+
+html[data-theme="dark"] .gallery-card.is-active .gallery-card-visual {
+  box-shadow:
+    0 60px 100px rgba(0, 0, 0, 0.46),
+    0 14px 32px rgba(0, 0, 0, 0.26);
+}
+
+html[data-theme="dark"] .gallery-kicker,
+html[data-theme="dark"] .gallery-tags span,
+html[data-theme="dark"] .project-meta,
+html[data-theme="dark"] .work-endnote {
+  color: var(--muted);
+}
+
+html[data-theme="dark"] .gallery-tags span,
+html[data-theme="dark"] .project-title-line a,
+html[data-theme="dark"] .gallery-controls button {
+  border-color: var(--line);
+}
+
+html[data-theme="dark"] .gallery-index {
+  color: #697080;
+}
+
+html[data-theme="dark"] .gallery-progress button {
+  background: color-mix(in srgb, var(--ink) 17%, transparent);
+}
+
+html[data-theme="dark"] .gallery-progress button:hover {
+  background: color-mix(in srgb, var(--ink) 32%, transparent);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Project journal / physical paper                                            */
+/* -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .project-journal {
+  background: var(--surface-soft);
+  border-top-color: var(--line);
+  border-bottom-color: var(--line);
+}
+
+html[data-theme="dark"] .journal-heading-aside button,
+html[data-theme="dark"] .journal-text-link {
+  border-bottom-color: #626a7a;
+}
+
+html[data-theme="dark"] .journal-stage-grid {
+  background: radial-gradient(
+    ellipse at 50% 65%,
+    rgba(112, 125, 158, 0.26),
+    transparent 65%
+  );
+}
+
+html[data-theme="dark"] .journal-stage-grid::after {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(237, 236, 230, 0.08) 3px
+  );
+}
+
+html[data-theme="dark"] .journal-book-shadow {
+  background: #070a11;
+  opacity: 0.44;
+}
+
+html[data-theme="dark"] .journal-backboard {
+  background: #151b31;
+  border-color: #3f4d82;
+  box-shadow: 0 14px 25px rgba(0, 0, 0, 0.38);
+}
+
+html[data-theme="dark"] .journal-stack {
+  background: repeating-linear-gradient(
+    0deg,
+    #161b26 0,
+    #161b26 1px,
+    #252b39 2px,
+    #252b39 3px
+  );
+  border-color: #3b4352;
+}
+
+/* .journal-paper is retained for future page wrappers; current markup uses .journal-page. */
+html[data-theme="dark"] .journal-paper,
+html[data-theme="dark"] .journal-page {
+  background: #202431;
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .journal-page-left,
+html[data-theme="dark"] .journal-paper-left {
+  background: linear-gradient(100deg, #202431 80%, #191d27);
+}
+
+html[data-theme="dark"] .journal-page-right,
+html[data-theme="dark"] .journal-paper-right {
+  background: linear-gradient(90deg, #191d27, #202431 8%);
+}
+
+html[data-theme="dark"] .journal-page-top,
+html[data-theme="dark"] .journal-page-bottom {
+  color: #9299aa;
+  border-color: #3a4251;
+}
+
+html[data-theme="dark"] .journal-contents-list,
+html[data-theme="dark"] .journal-contents-list button {
+  border-color: #3a4251;
+}
+
+html[data-theme="dark"] .journal-contents-list button > span,
+html[data-theme="dark"] .journal-contents-list small,
+html[data-theme="dark"] .journal-note,
+html[data-theme="dark"] .journal-project-bottom > span,
+html[data-theme="dark"] .journal-preview-label,
+html[data-theme="dark"] .journal-finish p,
+html[data-theme="dark"] .journal-endmark p {
+  color: #9299aa;
+}
+
+html[data-theme="dark"] .journal-mark {
+  color: #3b4250;
+}
+
+html[data-theme="dark"] .journal-project > p {
+  color: var(--muted);
+}
+
+html[data-theme="dark"] .journal-project-tags span {
+  border-color: #424b5c;
+  color: #b0b5c0;
+}
+
+html[data-theme="dark"] .journal-visual,
+html[data-theme="dark"] .journal-mobile-visual {
+  border-color: #41495a;
+  box-shadow: 0 18px 28px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="dark"] .journal-preview-footer > span {
+  color: #9ba2b1;
+}
+
+html[data-theme="dark"] .journal-preview-footer > a {
+  border-color: #4a5364;
+}
+
+html[data-theme="dark"] .journal-leaf-light {
+  background: linear-gradient(90deg, rgba(5, 8, 15, 0.58), transparent);
+}
+
+html[data-theme="dark"] .journal-spine {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(4, 7, 13, 0.38) 30%,
+    rgba(3, 5, 10, 0.72) 50%,
+    rgba(157, 171, 224, 0.22) 55%,
+    rgba(4, 7, 13, 0.42) 68%,
+    transparent
+  );
+}
+
+html[data-theme="dark"] .journal-cover {
+  background: linear-gradient(125deg, #2e4a9e, #151d42 75%);
+  color: var(--ink);
+  border-color: #6b80c0;
+  box-shadow:
+    inset 5px 0 10px rgba(0, 0, 0, 0.25),
+    0 6px 0 #2b3040,
+    0 8px 0 #0e1530;
+}
+
+html[data-theme="dark"] .journal-cover-top,
+html[data-theme="dark"] .journal-cover-bottom {
+  color: #c5ccea;
+}
+
+html[data-theme="dark"] .journal-cover-title > span > span {
+  color: #a8b8ff;
+}
+
+html[data-theme="dark"] .journal-cover-title p {
+  color: #aab7df;
+}
+
+html[data-theme="dark"] .journal-desk-note,
+html[data-theme="dark"] .journal-scroll-hint,
+html[data-theme="dark"] .journal-page-navigation small {
+  color: #9299aa;
+}
+
+html[data-theme="dark"] .journal-controls {
+  border-top-color: #3a4251;
+}
+
+html[data-theme="dark"] .journal-page-navigation button {
+  border-color: #4a5364;
+}
+
+html[data-theme="dark"] .journal-progress button > span {
+  background: #4a5364;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Technology workshop                                                        */
+/* -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .workshop-category-tabs,
+html[data-theme="dark"] .workshop-category-tabs button,
+html[data-theme="dark"] .workshop-panel,
+html[data-theme="dark"] .skill-grid,
+html[data-theme="dark"] .skill-card,
+html[data-theme="dark"] .process-strip {
+  border-color: var(--line);
+}
+
+html[data-theme="dark"] .workshop-category-tabs button.is-active {
+  background: var(--surface-soft);
+}
+
+html[data-theme="dark"] .workshop-tab-number,
+html[data-theme="dark"] .workshop-category-tabs small,
+html[data-theme="dark"] .workshop-category-tabs button > svg {
+  color: #9299aa;
+}
+
+html[data-theme="dark"] .workshop-scene {
+  background: radial-gradient(ellipse at 50% 50%, #273044, #10131b 68%);
+  border-right-color: var(--line);
+}
+
+html[data-theme="dark"] .workshop-coordinate,
+html[data-theme="dark"] .workshop-detail-top,
+html[data-theme="dark"] .workshop-detail-note,
+html[data-theme="dark"] .workshop-index-group h3 > span,
+html[data-theme="dark"] .process-strip > span {
+  color: #9299aa;
+}
+
+html[data-theme="dark"] .workshop-scene-index {
+  color: #252c3c;
+}
+
+html[data-theme="dark"] .workshop-lattice {
+  background-image: radial-gradient(#a9b7df38 0.7px, transparent 0.7px);
+}
+
+html[data-theme="dark"] .workshop-network path {
+  stroke: #536078;
+}
+
+html[data-theme="dark"] .workshop-network circle {
+  stroke: #65718b;
+}
+
+html[data-theme="dark"] .workshop-network .workshop-signal {
+  stroke: var(--blue);
+}
+
+html[data-theme="dark"] .workshop-node {
+  color: var(--ink);
+  border-color: #424c60;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="dark"] .workshop-node::after {
+  border-color: rgba(237, 236, 230, 0.09);
+}
+
+html[data-theme="dark"] .workshop-node > small {
+  color: #9aa3b4;
+}
+
+html[data-theme="dark"] .workshop-node.is-selected,
+html[data-theme="dark"] .workshop-node:hover {
+  border-color: var(--blue);
+  background: #272e40;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.4),
+    0 0 0 1px color-mix(in srgb, var(--blue) 18%, transparent);
+}
+
+html[data-theme="dark"] .workshop-core {
+  color: var(--ink);
+  background: #202431;
+  border-color: #535e76;
+  box-shadow:
+    0 22px 38px rgba(0, 0, 0, 0.4),
+    inset 0 1px rgba(237, 236, 230, 0.12);
+}
+
+html[data-theme="dark"] .workshop-core > small,
+html[data-theme="dark"] .workshop-detail-main p,
+html[data-theme="dark"] .workshop-detail-bottom > span {
+  color: #9da5b5;
+}
+
+html[data-theme="dark"] .workshop-core::before {
+  border-color: rgba(128, 150, 255, 0.34);
+}
+
+html[data-theme="dark"] .workshop-detail-bottom {
+  border-top-color: var(--line);
+}
+
+html[data-theme="dark"] .workshop-detail-bottom > button {
+  border-color: #4b566c;
+}
+
+html[data-theme="dark"] .workshop-index-group > button {
+  color: #abb1bf;
+  border-bottom-color: #353d4d;
+}
+
+html[data-theme="dark"] .workshop-index-group > button > svg:last-child {
+  color: #8d96a9;
+}
+
+html[data-theme="dark"] .workshop-index-group > button.is-selected,
+html[data-theme="dark"] .workshop-index-group > button:hover {
+  color: var(--ink);
+  background: #252b3a;
+}
+
+html[data-theme="dark"] .skill-card-top,
+html[data-theme="dark"] .skill-card > p {
+  color: var(--muted);
+}
+
+/* Public technology SVGs are single-color path icons; product previews are not selected. */
+html[data-theme="dark"] .technology-mark img[src$=".svg"] {
+  filter: invert(1) brightness(1.15) opacity(0.88);
+}
+
+/* -------------------------------------------------------------------------- */
+/* About, contact, and footer                                                  */
+/* -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .about-section {
+  background: var(--surface-soft);
+}
+
+html[data-theme="dark"] .about-mark {
+  color: #3d4350;
+}
+
+html[data-theme="dark"] .about-content p {
+  color: var(--muted);
+}
+
+html[data-theme="dark"] .about-content p.about-lead {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .underlined-link {
+  border-bottom-color: #626a7a;
+}
+
+html[data-theme="dark"] .about-facts {
+  border-top-color: var(--line);
+}
+
+html[data-theme="dark"] .about-facts small {
+  color: #9299aa;
+}
+
+html[data-theme="dark"] .contact-section {
+  background:
+    radial-gradient(
+      ellipse at 87% 9%,
+      color-mix(in srgb, var(--blue) 17%, transparent),
+      transparent 46%
+    ),
+    radial-gradient(
+      ellipse at 12% 100%,
+      rgba(37, 53, 99, 0.28),
+      transparent 42%
+    ),
+    var(--dark);
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .contact-inner .section-kicker {
+  color: #a7b5ff;
+}
+
+html[data-theme="dark"] .contact-inner > div:first-child > p {
+  color: #aeb3c1;
+}
+
+html[data-theme="dark"] .contact-cta {
+  background: var(--blue);
+  color: #10131b;
+}
+
+html[data-theme="dark"] .contact-cta:hover {
+  background: #98aaff;
+}
+
+html[data-theme="dark"] .contact-side > span,
+html[data-theme="dark"] .contact-side small {
+  color: #a0a7b7;
+}
+
+html[data-theme="dark"] .contact-star {
+  color: #7289ff;
+}
+
+html[data-theme="dark"] .contact-orbit {
+  border-color: rgba(159, 174, 255, 0.13);
+}
+
+html[data-theme="dark"] .site-footer {
+  background: var(--dark);
+  border-top-color: rgba(237, 236, 230, 0.14);
+  color: #d9dce4;
+}
+
+html[data-theme="dark"] .footer-logo span {
+  color: #9aabff;
+}
+
+html[data-theme="dark"] .footer-note,
+html[data-theme="dark"] .footer-copy {
+  color: #8e96a8;
+}
+
+html[data-theme="dark"] .footer-socials a {
+  color: #b6bdcc;
+}
+
+html[data-theme="dark"] .footer-socials a:hover {
+  color: var(--ink);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Radial view transition                                                      */
+/* -------------------------------------------------------------------------- */
+
+@supports (view-transition-name: root) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 650ms;
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.2, 1);
+  }
+
+  ::view-transition-old(root) {
+    animation: theme-root-out 650ms ease both;
+  }
+
+  ::view-transition-new(root) {
+    animation: theme-root-reveal 650ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
+    isolation: isolate;
+  }
+
+  @keyframes theme-root-out {
+    to {
+      opacity: 0.96;
+    }
+  }
+
+  @keyframes theme-root-reveal {
+    from {
+      clip-path: circle(0 at var(--theme-x, 50%) var(--theme-y, 50%));
+    }
+    to {
+      clip-path: circle(
+        var(--theme-radius, 150vmax) at var(--theme-x, 50%) var(--theme-y, 50%)
+      );
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transitioning *,
+  html.theme-transitioning *::before,
+  html.theme-transitioning *::after {
+    transition-duration: 0.01ms !important;
+  }
+
+  @supports (view-transition-name: root) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none !important;
+    }
+  }
+}
+/* Text and controls stay readable on the charcoal paper in every chapter. */
+html[data-theme="dark"] .journal-heading h2 em {
+  color: #a1a7b5;
+}
+html[data-theme="dark"] .journal-endmark .journal-mark {
+  color: #555f75;
+}
+html[data-theme="dark"] .journal-page-navigation button:hover:not(:disabled) {
+  color: #10131b;
+}
+html[data-theme="dark"] .journal-progress button.active > span {
+  background: var(--blue);
+}
+html[data-theme="dark"] .workshop-detail-name {
+  color: var(--blue);
+}
+html[data-theme="dark"] .workshop-core-logo > svg,
+html[data-theme="dark"] .workshop-node-icon > svg {
+  color: #b3c0ff;
+}
+html[data-theme="dark"] .theme-toggle.is-dark {
+  background: #252d48;
+}
+@media (min-width: 1101px) {
+  html[data-theme="dark"] .header-enhanced .nav-links {
+    background: none;
+    box-shadow: none;
+  }
+}
+
+html[data-theme="dark"] .journal-static {
+  border-top-color: var(--line);
+}

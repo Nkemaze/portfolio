@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <pre id="M">PENDING</pre>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      function measure() {
+        const r = (el) => { if (!el) return null; const b = el.getBoundingClientRect(); return { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.width), h: Math.round(b.height), right: Math.round(b.right), bottom: Math.round(b.bottom) }; };
+        const q = (s) => document.querySelector(s);
+        const out = { vw: innerWidth, vh: innerHeight };
+        try { out.fontsInter = document.fonts.check("16px Inter"); out.fontsSG = document.fonts.check("16px 'Space Grotesk'"); } catch(e) { out.fontsErr = String(e); }
+        for (const [k, s] of Object.entries({ header: ".site-header", hero: ".hero", heroCopy: ".hero-copy", heroIntro: ".hero-intro", h1: ".hero h1", metaRow: ".hero-meta-row", heroArt: ".hero-art", heroShowcase: ".hero-showcase", stage: ".stage", codeWindow: ".code-window", dashWindow: ".dash-window", sideCopy: ".hero-side-copy", sideRule: ".side-rule", workSection: ".work-section" })) out[k] = r(q(s));
+        const h1 = q(".hero h1");
+        if (h1) {
+          const cs = getComputedStyle(h1);
+          out.h1Style = { fs: cs.fontSize, ls: cs.letterSpacing, lh: cs.lineHeight, ff: cs.fontFamily, align: cs.textAlign };
+          const range = document.createRange();
+          range.selectNodeContents(h1);
+          out.h1Lines = [...range.getClientRects()].map((b) => ({ x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.width), h: Math.round(b.height), right: Math.round(b.right) }));
+        }
+        const hero = q(".hero");
+        if (hero) { const cs = getComputedStyle(hero); out.heroStyle = { display: cs.display, cols: cs.gridTemplateColumns, padTop: cs.paddingTop, align: cs.alignItems, gap: cs.columnGap, minH: cs.minHeight }; }
+        const c = q(".hero-copy"), a = q(".hero-art"), s = q(".hero-side-copy");
+        if (c && a) out.gapCopyArt = Math.round(a.getBoundingClientRect().left - c.getBoundingClientRect().right);
+        if (a && s) out.gapArtSide = Math.round(s.getBoundingClientRect().left - a.getBoundingClientRect().right);
+        if (c && s) out.gapCopySide = Math.round(s.getBoundingClientRect().left - c.getBoundingClientRect().right);
+        return JSON.stringify(out);
+      }
+      function run() {
+        setTimeout(() => {
+          try { document.getElementById("M").textContent = "METRICS " + measure(); }
+          catch (e) { document.getElementById("M").textContent = "MERR " + e.message; }
+        }, 300);
+      }
+      window.addEventListener("load", run);
+      setTimeout(run, 1500);
+    </script>
+  </body>
+</html>

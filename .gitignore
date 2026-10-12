@@ -1,0 +1,6 @@
+node_modules/
+dist/
+book-fit-*.png
+npm-debug.log*
+.env
+.env.*

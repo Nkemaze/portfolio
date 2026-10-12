@@ -1,0 +1,802 @@
+.technology-section {
+  --workshop-x: 0deg;
+  --workshop-y: 0deg;
+  padding-top: 105px;
+  padding-bottom: 100px;
+}
+.technology-section .stack-heading {
+  margin-bottom: 43px;
+}
+.technology-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 5px;
+}
+.technology-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.technology-mark-pair img {
+  width: 50%;
+}
+.workshop-category-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.workshop-category-tabs button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: left;
+  padding: 24px 20px;
+  min-width: 0;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: none;
+  cursor: pointer;
+  transition:
+    background 0.35s,
+    color 0.35s;
+}
+.workshop-category-tabs button:last-child {
+  border-right: 0;
+}
+.workshop-tab-number {
+  font-size: 8px;
+  color: #969a90;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+.workshop-category-tabs strong {
+  display: block;
+  font:
+    500 17px/1.1 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.025em;
+}
+.workshop-category-tabs small {
+  display: block;
+  font-size: 8px;
+  color: #878b82;
+  margin-top: 7px;
+}
+.workshop-category-tabs button > svg {
+  margin-left: auto;
+  color: #7e8378;
+  stroke-width: 1.5;
+  flex-shrink: 0;
+}
+.workshop-category-tabs button:after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.workshop-category-tabs button.is-active:after {
+  transform: scaleX(1);
+}
+.workshop-category-tabs button.is-active {
+  background: #eeeee7;
+}
+.workshop-category-tabs button.is-active > svg {
+  color: var(--blue);
+}
+.workshop-panel {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  min-height: 470px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+.workshop-scene {
+  position: relative;
+  min-height: 470px;
+  isolation: isolate;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 50%, #e3e9df, #eeeee600 65%);
+  perspective: 1300px;
+  border-right: 1px solid var(--line);
+}
+.workshop-coordinate {
+  position: absolute;
+  font-size: 7px;
+  letter-spacing: 0.14em;
+  color: #8b9083;
+  z-index: 2;
+}
+.coordinate-top {
+  top: 25px;
+  left: 25px;
+}
+.coordinate-bottom {
+  bottom: 25px;
+  left: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.workshop-scene-index {
+  position: absolute;
+  right: 18px;
+  bottom: 8px;
+  font:
+    600 110px/0.9 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.1em;
+  color: #e3e5da;
+}
+.workshop-lattice {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(#89937c38 0.7px, transparent 0.7px);
+  background-size: 19px 19px;
+  mask-image: radial-gradient(ellipse, #0008, transparent 70%);
+}
+.workshop-network {
+  position: absolute;
+  inset: 4% 0;
+  transform: rotateX(var(--workshop-y)) rotateY(var(--workshop-x));
+  transition: transform 0.55s ease;
+  pointer-events: none;
+}
+.workshop-network svg {
+  width: 100%;
+  height: 100%;
+}
+.workshop-network path {
+  stroke: #c3cdb7;
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.workshop-entered .workshop-network path {
+  animation: workshop-connect 1.5s 0.2s ease forwards;
+}
+.workshop-network circle {
+  stroke: #cbd1c1;
+  stroke-width: 0.8;
+}
+.workshop-network .workshop-signal {
+  stroke: #315cff;
+  stroke-width: 1.7;
+  stroke-dasharray: 0.025 0.23;
+  opacity: 0.5;
+}
+.workshop-entered .workshop-network .workshop-signal {
+  animation: workshop-signal 9s linear infinite;
+}
+.workshop-network .workshop-orbit {
+  transform-origin: center;
+  animation: workshop-spin 55s linear infinite;
+}
+.workshop-nodes {
+  position: absolute;
+  inset: 0;
+  transform: rotateX(var(--workshop-y)) rotateY(var(--workshop-x));
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+.workshop-node {
+  position: absolute;
+  z-index: 2;
+  width: 124px;
+  min-height: 89px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #d1d6c7;
+  background: #f9f8f0ed;
+  box-shadow: 0 10px 24px #29362108;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 14px 8px;
+  opacity: 0;
+  transform: translateY(25px) rotateX(16deg) scale(0.8);
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s,
+    background 0.3s;
+}
+.workshop-entered .workshop-node {
+  animation: workshop-node-in 0.9s cubic-bezier(0.16, 0.8, 0.2, 1)
+    var(--node-delay) both;
+}
+.workshop-node:after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid #fff8;
+  border-radius: 5px;
+  pointer-events: none;
+}
+.workshop-node > span:not(.workshop-node-icon) {
+  font-size: 9px;
+  font-weight: 500;
+}
+.workshop-node > small {
+  position: absolute;
+  right: 8px;
+  top: 7px;
+  font-size: 5px;
+  color: #9ca393;
+}
+.workshop-node.is-selected {
+  border-color: #8fa5ff;
+  background: #fffefa;
+  box-shadow: 0 9px 23px #315cff15;
+}
+.workshop-node:hover {
+  border-color: var(--blue);
+  background: white;
+  box-shadow: 0 12px 30px #315cff14;
+}
+.node-0 {
+  top: 16%;
+  left: 8%;
+}
+.node-1 {
+  top: 16%;
+  right: 8%;
+}
+.node-2 {
+  bottom: 17%;
+  left: 8%;
+}
+.node-3 {
+  bottom: 17%;
+  right: 8%;
+}
+.workshop-node-icon {
+  display: flex;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+}
+.workshop-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 154px;
+  height: 166px;
+  margin: -83px 0 0 -77px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  background: #f5f3ed;
+  border: 1px solid #cbd3c2;
+  box-shadow:
+    0 22px 38px #16211812,
+    inset 0 1px #fff;
+  border-radius: 18px;
+  z-index: 3;
+  transform: rotate(-5deg);
+  animation: workshop-core-in 0.8s cubic-bezier(0.16, 0.8, 0.2, 1) both;
+}
+.workshop-core-logo {
+  height: 60px;
+  display: grid;
+  place-items: center;
+}
+.workshop-core > span {
+  font:
+    500 17px/1 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.03em;
+}
+.workshop-core > small {
+  font-size: 5px;
+  line-height: 1.8;
+  letter-spacing: 0.15em;
+  color: #8b9381;
+}
+.workshop-core:before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border: 1px solid #cbd3c270;
+  border-radius: 23px;
+  pointer-events: none;
+}
+.workshop-detail {
+  padding: 30px 32px 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  animation: workshop-detail-in 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.workshop-detail-top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 6px;
+  letter-spacing: 0.12em;
+  color: #969b8e;
+}
+.workshop-detail-top > span:last-child {
+  margin-left: auto;
+  font-size: 6px;
+}
+.workshop-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 3px #315cff0e;
+}
+.workshop-detail-name {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--blue);
+}
+.workshop-detail h3 {
+  font:
+    500 clamp(29px, 3vw, 43px) / 1.05 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.065em;
+  margin: 17px 0 22px;
+}
+.workshop-detail h3 > span {
+  color: var(--blue);
+}
+.workshop-detail-main p {
+  font-size: 12px;
+  line-height: 1.85;
+  color: #7a8072;
+  max-width: 340px;
+}
+.workshop-detail-note {
+  display: block;
+  font-size: 7px;
+  letter-spacing: 0.07em;
+  color: #9aa28f;
+  margin-top: 23px;
+  text-transform: uppercase;
+}
+.workshop-detail-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 15px;
+  padding-top: 20px;
+  border-top: 1px solid #dbded2;
+}
+.workshop-detail-bottom > span {
+  font-size: 9px;
+  line-height: 1.7;
+  color: #878f7b;
+  max-width: 210px;
+}
+.workshop-detail-bottom > button {
+  width: 35px;
+  height: 35px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid #cdd3c1;
+  background: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.workshop-detail-bottom > button:hover {
+  background: var(--blue);
+  color: white;
+  border-color: var(--blue);
+}
+.workshop-tool-index {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 32px 0 0;
+  gap: 25px;
+}
+.workshop-index-group h3 {
+  display: flex;
+  gap: 9px;
+  font:
+    500 13px "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+}
+.workshop-index-group h3 > span {
+  font:
+    500 7px "Inter",
+    sans-serif;
+  color: #9aa18e;
+  align-self: center;
+}
+.workshop-index-group > button {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 11px 7px;
+  border: 0;
+  border-bottom: 1px solid #e0e2d7;
+  text-align: left;
+  background: none;
+  cursor: pointer;
+  color: #656d5a;
+  transition:
+    color 0.25s,
+    background 0.25s;
+}
+.workshop-index-group > button > span:not(.technology-mark) {
+  font-size: 9px;
+}
+.workshop-index-group > button > svg:last-child {
+  margin-left: auto;
+  color: #a0a996;
+}
+.workshop-index-group > button.is-selected {
+  background: #eaeedfff;
+  color: var(--ink);
+}
+.workshop-index-group > button:hover {
+  color: var(--blue);
+  background: #edeee6;
+}
+.workshop-process {
+  margin-top: 40px;
+}
+.workshop-process > div {
+  position: relative;
+  padding-block: 8px;
+}
+.workshop-process > div:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.workshop-entered .workshop-process > div:after {
+  animation: workshop-connect 1s var(--step-delay) both;
+}
+.technology-section button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+.technology-section:not(.workshop-visible) .workshop-orbit,
+.technology-section:not(.workshop-visible) .workshop-signal {
+  animation-play-state: paused;
+}
+@keyframes workshop-connect {
+  to {
+    stroke-dashoffset: 0;
+    transform: scaleX(1);
+  }
+}
+@keyframes workshop-signal {
+  to {
+    stroke-dashoffset: -1;
+  }
+}
+@keyframes workshop-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes workshop-node-in {
+  from {
+    opacity: 0;
+    transform: translateY(25px) rotateX(16deg) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes workshop-core-in {
+  from {
+    opacity: 0;
+    transform: rotate(-15deg) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-5deg);
+  }
+}
+@keyframes workshop-detail-in {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 1240px) {
+  .workshop-category-tabs button {
+    padding: 22px 14px;
+    gap: 10px;
+  }
+  .workshop-category-tabs strong {
+    font-size: 15px;
+  }
+  .workshop-panel {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+  .workshop-node {
+    width: 107px;
+  }
+  .workshop-core {
+    width: 128px;
+    height: 144px;
+    margin: -72px 0 0 -64px;
+  }
+  .workshop-core-logo .technology-mark {
+    transform: scale(0.8);
+  }
+  .workshop-core > span {
+    font-size: 15px;
+  }
+  .workshop-detail {
+    padding: 25px 22px;
+  }
+  .node-0,
+  .node-2 {
+    left: 5%;
+  }
+  .node-1,
+  .node-3 {
+    right: 5%;
+  }
+}
+@media (max-width: 900px) {
+  .workshop-panel {
+    grid-template-columns: 1fr;
+  }
+  .workshop-scene {
+    min-height: 420px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .workshop-detail {
+    min-height: 360px;
+  }
+  .workshop-detail h3 {
+    font-size: 36px;
+    max-width: 400px;
+  }
+  .workshop-detail-main p {
+    max-width: 100%;
+  }
+  .workshop-detail-main {
+    padding: 22px 0;
+  }
+  .workshop-tool-index {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+  .workshop-category-tabs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .workshop-category-tabs button {
+    border-bottom: 1px solid var(--line);
+  }
+  .workshop-category-tabs button:nth-child(2) {
+    border-right: 0;
+  }
+  .workshop-category-tabs button:nth-child(n + 3) {
+    border-bottom: 0;
+  }
+  .workshop-core {
+    width: 154px;
+    height: 166px;
+    margin: -83px 0 0 -77px;
+  }
+  .workshop-core-logo .technology-mark {
+    transform: none;
+  }
+  .workshop-core > span {
+    font-size: 17px;
+  }
+  .workshop-node {
+    width: 125px;
+  }
+  .node-0,
+  .node-2 {
+    left: 10%;
+  }
+  .node-1,
+  .node-3 {
+    right: 10%;
+  }
+}
+@media (max-width: 720px) {
+  .technology-section {
+    padding-block: 80px;
+  }
+  .technology-section .stack-heading {
+    margin-bottom: 30px;
+  }
+  .workshop-category-tabs button {
+    padding: 18px 11px;
+    gap: 8px;
+  }
+  .workshop-category-tabs strong {
+    font-size: 14px;
+  }
+  .workshop-category-tabs small {
+    font-size: 7px;
+  }
+  .workshop-tab-number {
+    display: none;
+  }
+  .workshop-scene {
+    min-height: 390px;
+  }
+  .workshop-node {
+    width: 90px;
+    min-height: 85px;
+    border-radius: 6px;
+    padding: 13px 5px;
+  }
+  .workshop-node > span:not(.workshop-node-icon) {
+    font-size: 7px;
+  }
+  .node-0,
+  .node-2 {
+    left: 4%;
+  }
+  .node-1,
+  .node-3 {
+    right: 4%;
+  }
+  .node-0,
+  .node-1 {
+    top: 18%;
+  }
+  .node-2,
+  .node-3 {
+    bottom: 16%;
+  }
+  .workshop-core {
+    width: 112px;
+    height: 139px;
+    margin: -69px 0 0 -56px;
+    border-radius: 13px;
+    gap: 9px;
+  }
+  .workshop-core-logo {
+    height: 46px;
+  }
+  .workshop-core-logo .technology-mark,
+  .workshop-core-logo > svg {
+    transform: scale(0.72);
+  }
+  .workshop-core > span {
+    font-size: 13px;
+  }
+  .workshop-core > small {
+    font-size: 4px;
+  }
+  .workshop-core:before {
+    inset: -6px;
+    border-radius: 18px;
+  }
+  .workshop-coordinate {
+    font-size: 6px;
+  }
+  .coordinate-top {
+    top: 20px;
+    left: 18px;
+  }
+  .coordinate-bottom {
+    bottom: 20px;
+    left: 18px;
+  }
+  .workshop-network {
+    inset: 1% -25%;
+  }
+  .workshop-detail {
+    min-height: 350px;
+    padding: 23px 20px;
+  }
+  .workshop-detail h3 {
+    font-size: 33px;
+    margin: 15px 0;
+  }
+  .workshop-detail-main p {
+    font-size: 12px;
+  }
+  .workshop-tool-index {
+    gap: 25px 18px;
+  }
+  .workshop-index-group h3 {
+    font-size: 12px;
+  }
+  .workshop-index-group > button {
+    gap: 8px;
+    padding: 10px 4px;
+  }
+  .workshop-index-group > button > span:not(.technology-mark) {
+    font-size: 8px;
+  }
+  .workshop-process {
+    gap: 11px;
+  }
+  .workshop-process > span {
+    margin-bottom: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .technology-section *,
+  .technology-section *:before,
+  .technology-section *:after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .workshop-node,
+  .workshop-core,
+  .workshop-detail {
+    opacity: 1;
+    transform: none;
+  }
+  .workshop-network,
+  .workshop-nodes {
+    transform: none !important;
+  }
+  .workshop-network path {
+    stroke-dashoffset: 0;
+  }
+  .workshop-process > div:after {
+    transform: scaleX(1);
+  }
+}
+/* One-shot entrance belongs to viewport entry, not initial page mount. */
+.technology-section:not(.workshop-entered) .workshop-core,
+.technology-section:not(.workshop-entered) .workshop-detail {
+  animation-play-state: paused;
+}
+@media (max-width: 380px) {
+  .workshop-node {
+    width: 75px;
+  }
+  .workshop-core {
+    width: 94px;
+    margin-left: -47px;
+  }
+  .workshop-core > span {
+    font-size: 11px;
+  }
+  .workshop-core-logo {
+    transform: scale(0.9);
+  }
+  .node-0,
+  .node-2 {
+    left: 3%;
+  }
+  .node-1,
+  .node-3 {
+    right: 3%;
+  }
+  .workshop-node > span:not(.workshop-node-icon) {
+    font-size: 6px;
+  }
+}

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f3ed" />
+    <script>
+      (() => {
+        let saved;
+        try { saved = localStorage.getItem('bless-theme'); } catch {}
+        const theme = saved === 'dark' || saved === 'light' ? saved : 'light';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#10131b' : '#f5f3ed';
+      })();
+    </script>
+    <meta name="description" content="Bless — software developer building thoughtful digital experiences." />
+    <link rel="icon" type="image/svg+xml" href="/bless-website-icon.png" />
+    <title>Bless — Digital experiences, engineered with purpose</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

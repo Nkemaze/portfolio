@@ -1,0 +1,275 @@
+/*
+ * Site finishing motion
+ *
+ * The ready gate keeps content visible if the hook is not mounted. Motion is
+ * also driven by section classes, so only ambient loops depend on visibility.
+ */
+
+/* About entrance: the existing .reveal wrapper remains responsible for its
+   original reveal; these rules add a finer-grained, section-owned cadence. */
+html.site-motion-ready .about-section:not(.section-entered) .about-heading,
+html.site-motion-ready .about-section:not(.section-entered) .about-content {
+  opacity: 0;
+  translate: 0 22px;
+}
+
+html.site-motion-ready .about-section:not(.section-entered) .about-facts > div {
+  opacity: 0;
+  translate: 0 14px;
+}
+
+html.site-motion-ready .about-section.section-entered .about-heading,
+html.site-motion-ready .about-section.section-entered .about-content {
+  transform: none;
+  animation: site-about-rise 760ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+html.site-motion-ready .about-section.section-entered .about-content {
+  animation-delay: 110ms;
+}
+
+html.site-motion-ready .about-section.section-entered .about-facts > div {
+  animation: site-fact-rise 570ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+html.site-motion-ready
+  .about-section.section-entered
+  .about-facts
+  > div:nth-child(1) {
+  animation-delay: 220ms;
+}
+html.site-motion-ready
+  .about-section.section-entered
+  .about-facts
+  > div:nth-child(2) {
+  animation-delay: 300ms;
+}
+html.site-motion-ready
+  .about-section.section-entered
+  .about-facts
+  > div:nth-child(3) {
+  animation-delay: 380ms;
+}
+
+/* The B is a quiet typographic watermark, not a continuously running effect. */
+.about-mark {
+  color: var(--line);
+  transform-origin: 20% 80%;
+  will-change: transform, opacity;
+}
+html.site-motion-ready .about-section:not(.section-entered) .about-mark {
+  opacity: 0;
+}
+html.site-motion-ready .about-section.section-entered .about-mark {
+  animation: site-watermark-in 950ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes site-about-rise {
+  from {
+    opacity: 0;
+    translate: 0 22px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes site-fact-rise {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes site-watermark-in {
+  from {
+    opacity: 0;
+    transform: translate3d(-10px, 12px, 0) rotate(-7deg);
+  }
+  to {
+    opacity: 0.92;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+/* Contact atmosphere. Animation-play-state is the offscreen pause switch. */
+.contact-orbit {
+  border-color: color-mix(in srgb, var(--paper) 10%, transparent);
+  transform-origin: 50% 50%;
+  animation-duration: 24s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-play-state: paused;
+  will-change: transform;
+}
+.contact-orbit.orbit-one {
+  animation-name: site-orbit-one;
+}
+.contact-orbit.orbit-two {
+  animation-name: site-orbit-two;
+  animation-duration: 31s;
+  animation-direction: reverse;
+}
+.contact-section.section-in-view .contact-orbit {
+  animation-play-state: running;
+}
+
+@keyframes site-orbit-one {
+  from {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  to {
+    transform: rotate(360deg) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes site-orbit-two {
+  from {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  to {
+    transform: rotate(360deg) translate3d(0, 0, 0);
+  }
+}
+
+.contact-star {
+  color: var(--blue);
+  transform-origin: 50% 50%;
+  animation: site-star-float 8s ease-in-out infinite;
+  animation-play-state: paused;
+  will-change: transform;
+}
+.contact-section.section-in-view .contact-star {
+  animation-play-state: running;
+}
+
+@keyframes site-star-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -5px, 0) rotate(8deg);
+  }
+}
+
+/* Magnetic movement uses the individual translate property, leaving any
+   component-owned transform untouched (notably the hero/project animations). */
+.contact-cta,
+.underlined-link,
+.hero-work-cta {
+  translate: var(--magnetic-x, 0px) var(--magnetic-y, 0px);
+  transition-property: background, border-color, color, translate;
+  transition-duration: 0.2s, 0.2s, 0.2s, 0.28s;
+  transition-timing-function: ease, ease, ease, cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.contact-cta svg,
+.underlined-link svg,
+.hero-work-cta svg {
+  transition:
+    translate 0.28s cubic-bezier(0.2, 0.7, 0.2, 1),
+    color 0.2s ease;
+}
+.contact-cta:hover svg,
+.underlined-link:hover svg,
+.hero-work-cta:hover svg {
+  translate: 3px -3px;
+}
+
+/* A restrained focus ring keeps the effect useful without turning into a
+   cursor replacement. */
+.contact-cta:focus-visible,
+.underlined-link:focus-visible,
+.hero-work-cta:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+
+.footer-socials a {
+  translate: 0 0;
+  transition:
+    color 0.2s ease,
+    translate 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.footer-socials a:hover,
+.footer-socials a:focus-visible {
+  color: var(--paper);
+  translate: 0 -2px;
+}
+.footer-socials a svg {
+  transition:
+    translate 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
+    color 0.2s ease;
+}
+.footer-socials a:hover svg,
+.footer-socials a:focus-visible svg {
+  translate: 1px -1px;
+}
+
+/* Dynamic reduced-motion changes are mirrored by the hook's root class. */
+html.site-motion-reduced .about-section .about-heading,
+html.site-motion-reduced .about-section .about-content,
+html.site-motion-reduced .about-section .about-facts > div,
+html.site-motion-reduced .about-section .about-mark {
+  opacity: 1;
+  translate: 0 0;
+  transform: none;
+  animation: none !important;
+}
+html.site-motion-reduced .contact-orbit,
+html.site-motion-reduced .contact-star {
+  animation: none !important;
+}
+html.site-motion-reduced .contact-cta,
+html.site-motion-reduced .underlined-link,
+html.site-motion-reduced .hero-work-cta {
+  translate: 0 0;
+  transition: none !important;
+}
+html.site-motion-reduced .contact-cta svg,
+html.site-motion-reduced .underlined-link svg,
+html.site-motion-reduced .hero-work-cta svg,
+html.site-motion-reduced .footer-socials a,
+html.site-motion-reduced .footer-socials a svg {
+  transition: none !important;
+  translate: 0 0;
+}
+
+/* Without IO there is no reliable offscreen state, so ambient loops stay off. */
+html.site-motion-no-observer .contact-orbit,
+html.site-motion-no-observer .contact-star {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.site-motion-ready .about-section .about-heading,
+  html.site-motion-ready .about-section .about-content,
+  html.site-motion-ready .about-section .about-facts > div,
+  html.site-motion-ready .about-section .about-mark {
+    opacity: 1;
+    translate: 0 0;
+    transform: none;
+    animation: none !important;
+  }
+  .contact-orbit,
+  .contact-star {
+    animation: none !important;
+  }
+  .contact-cta,
+  .underlined-link,
+  .hero-work-cta,
+  .footer-socials a,
+  .contact-cta svg,
+  .underlined-link svg,
+  .hero-work-cta svg,
+  .footer-socials a svg {
+    transition: none !important;
+    translate: 0 0;
+  }
+}

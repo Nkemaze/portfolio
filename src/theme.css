@@ -372,6 +372,23 @@ html[data-theme="dark"] .journal-mobile-visual {
   box-shadow: 0 18px 28px rgba(0, 0, 0, 0.3);
 }
 
+html[data-theme="dark"] .journal-visual {
+  background: #202431;
+}
+
+/* Project image gallery modal */
+html[data-theme="dark"] .project-gallery-backdrop {
+  background: rgba(3, 5, 10, 0.84);
+}
+
+html[data-theme="dark"] .project-gallery-panel {
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6);
+}
+
+html[data-theme="dark"] .project-gallery-thumbs button {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
 html[data-theme="dark"] .journal-preview-footer > span {
   color: #9ba2b1;
 }

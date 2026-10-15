@@ -44,6 +44,12 @@ const projects = [
     theme: "pharma",
     href: "https://github.com/Nkemaze/pharmafinder",
     label: "Explore project",
+    images: [
+      "/projects/pharmafinder/pharmafinder001.png",
+      "/projects/pharmafinder/pharmafinder002.png",
+      "/projects/pharmafinder/pharmafinder003.png",
+      "/projects/pharmafinder/pharmafinder004.png",
+    ],
   },
   {
     number: "02",
@@ -55,6 +61,11 @@ const projects = [
     theme: "devbug",
     href: "https://github.com/Nkemaze",
     label: "Explore project",
+    images: [
+      "/projects/devbug/hero.png",
+      "/projects/devbug/book-fit-1440.png",
+      "/projects/devbug/bless-website-icon.png",
+    ],
   },
   {
     number: "03",
@@ -66,6 +77,11 @@ const projects = [
     theme: "market",
     href: "https://github.com/Nkemaze",
     label: "Explore project",
+    images: [
+      "/projects/marketmemo/book-fit-390.png",
+      "/projects/marketmemo/image1.jpeg",
+      "/projects/marketmemo/image2.png",
+    ],
   },
 ];
 
@@ -115,66 +131,6 @@ const experiments = [
     label: "View experiment",
   },
 ];
-
-
-
-function ProjectVisual({ theme }) {
-  if (theme === "pharma") {
-    return (
-      <div className="visual visual-pharma" aria-label="Illustrative pharmacy dashboard preview">
-        <div className="mock-sidebar">
-          <div className="mock-brand"><span className="mock-brand-icon">+</span><span>pharma<span className="muted-word">finder</span></span></div>
-          <div className="mock-nav active"><span>▦</span> Overview</div>
-          <div className="mock-nav"><span>▤</span> Inventory</div>
-          <div className="mock-nav"><span>⌖</span> Locations</div>
-          <div className="mock-nav"><span>⚙</span> Settings</div>
-          <div className="mock-sidebar-bottom"><span className="tiny-avatar">NB</span><span><b>Pharmacy admin</b><small>Workspace</small></span></div>
-        </div>
-        <div className="mock-main">
-          <div className="mock-topline"><span>Overview</span><span className="mock-pill"><i /> Pharmacy open</span></div>
-          <div className="mock-greeting">Good morning 👋<small>Here’s what’s happening at your pharmacy.</small></div>
-          <div className="mock-stats">
-            <div><small>Total medicines</small><b>1,284</b><em>In your inventory</em></div>
-            <div><small>Available</small><b>1,106</b><em className="positive">↑ Stock overview</em></div>
-            <div><small>Low stock</small><b>12</b><em>Needs attention</em></div>
-          </div>
-          <div className="mock-table">
-            <div className="mock-table-head"><b>Recently updated</b><small>View all ↗</small></div>
-            {["Paracetamol 500mg", "Amoxicillin 250mg", "Vitamin C"].map((item, i) => (
-              <div className="mock-row" key={item}><span className={`drug-dot drug-${i}`} /> <span>{item}<small>{["Pain relief", "Antibiotic", "Supplement"][i]}</small></span><b>{["In stock", "In stock", "Low stock"][i]}</b></div>
-            ))}
-          </div>
-        </div>
-        <div className="visual-caption">PRODUCT INTERFACE / CONCEPT PREVIEW</div>
-      </div>
-    );
-  }
-  if (theme === "devbug") {
-    return (
-      <div className="visual visual-devbug" aria-label="Illustrative developer community interface preview">
-        <div className="dev-window-top"><span className="window-dots"><i /><i /><i /></span><span>devbug.zone</span><span className="dev-top-right">⌘ K</span></div>
-        <div className="dev-layout">
-          <aside className="dev-side"><div className="dev-logo">DEV<span>BUG</span><b>⌁</b></div><small>MENU</small><p className="chosen">◈ &nbsp; All questions</p><p>♧ &nbsp; Tags</p><p>♙ &nbsp; Users</p><p>↗ &nbsp; Bookmarks</p><div className="dev-side-bottom">BUILD BETTER, TOGETHER.</div></aside>
-          <div className="dev-content"><div className="dev-heading">Explore questions <span>＋ Ask question</span></div><p className="dev-subtitle">Find answers. Share what you know.</p>
-            <div className="dev-question"><div className="vote"><b>18</b><small>votes</small></div><div><b>How do I structure a scalable Express API?</b><p>I'm organizing routes, controllers and services...</p><div className="dev-tags"><i>node.js</i><i>express</i><i>architecture</i></div><small>asked 2 hours ago · 6 answers</small></div></div>
-            <div className="dev-question"><div className="vote"><b>12</b><small>votes</small></div><div><b>Understanding state updates in React</b><p>What is the best way to keep related state in sync?</p><div className="dev-tags"><i>react</i><i>javascript</i></div><small>asked yesterday · 4 answers</small></div></div>
-            <div className="dev-question"><div className="vote"><b>9</b><small>votes</small></div><div><b>MongoDB indexing best practices</b><p>Choosing the right index for frequently used queries...</p><div className="dev-tags"><i>mongodb</i><i>database</i></div><small>asked 1 day ago · 3 answers</small></div></div>
-          </div>
-        </div>
-        <div className="visual-caption">COMMUNITY PLATFORM / CONCEPT PREVIEW</div>
-      </div>
-    );
-  }
-  return (
-    <div className="visual visual-market" aria-label="Illustrative FX journal interface preview">
-      <div className="market-top"><div className="market-brand"><span>m.</span> marketmemo</div><span className="market-avatar">B</span></div>
-      <div className="market-intro"><small>YOUR TRADING JOURNAL</small><h3>Make every trade<br />a lesson.</h3><p>Review your process. Not just your profit.</p></div>
-      <div className="market-metrics"><div><small>Journal entries</small><b>24</b><span>This month</span></div><div><small>Tracked pairs</small><b>06</b><span>Across sessions</span></div></div>
-      <div className="market-chart"><div className="chart-title">Performance review <small>LAST 7 SESSIONS</small></div><div className="chart-bars">{[32, 46, 39, 63, 50, 78, 66, 90, 73, 84, 61, 96].map((h, i) => <span key={i} style={{height:`${h}%`}} />)}</div><div className="chart-axis"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span></div></div>
-      <div className="visual-caption">FX JOURNAL / CONCEPT PREVIEW</div>
-    </div>
-  );
-}
 
 
 function Reveal({ children, className = "" }) {
@@ -283,7 +239,9 @@ function ProjectGallery() {
                 ref={(el) => { cardRefs.current[i] = el; }}
                 className={`gallery-card project-${project.theme}${i === active ? " is-active" : ""}`}
               >
-                <div className="gallery-card-visual"><ProjectVisual theme={project.theme} /></div>
+                <div className="gallery-card-visual">
+                  <img src={project.images[0]} alt={`${project.name} preview`} />
+                </div>
               </article>
             ))}
           </div>
@@ -478,7 +436,8 @@ function App() {
           <div className="work-endnote"><span>MORE EXPERIMENTS ARE ALWAYS IN PROGRESS.</span><a href="https://github.com/Nkemaze" target="_blank" rel="noreferrer">Explore GitHub <ArrowUpRight size={15} /></a></div>
         </section> */}
 
-        <ProjectBook projects={projects} renderVisual={(theme) => <ProjectVisual theme={theme} />} />
+        <ProjectBook projects={projects} />
+
 
         {/* <ProjectLab /> */}
 

@@ -359,12 +359,28 @@
   letter-spacing: 0.1em;
 }
 .journal-project-bottom > a {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 9px;
-  font-size: 9px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--blue);
+  border-radius: 3px;
+  background: var(--blue);
+  box-shadow: 0 4px 10px #172b5c24;
+  font-size: 11px;
   font-weight: 600;
-  color: var(--blue);
+  color: #fff;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.journal-project-bottom > a:hover {
+  background: #263d78;
+  box-shadow: 0 7px 15px #172b5c35;
+  transform: translateY(-2px);
 }
 .journal-mobile-visual {
   display: none;
@@ -391,14 +407,60 @@
 }
 .journal-visual {
   position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
   border: 1px solid #d9dccf;
   border-radius: 5px;
   overflow: hidden;
   box-shadow: 0 18px 28px #15171d14;
-  width: 100%;
+  background: #f3f2ec;
+  cursor: pointer;
 }
-.journal-visual > .visual {
+.journal-visual > img {
+  display: block;
+  width: 100%;
   height: clamp(180px, 20vw, 270px);
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+.journal-visual:hover > img,
+.journal-image-button:hover > img {
+  transform: scale(1.045);
+}
+.journal-image-button {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+.journal-image-button > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+.journal-visual-badge {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: rgba(10, 12, 18, 0.64);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
 }
 .journal-preview-footer {
   display: flex;
@@ -735,7 +797,7 @@
     font-size: 9px;
     margin-bottom: 17px;
   }
-  .journal-visual > .visual {
+  .journal-visual > img {
     height: 180px;
   }
   .journal-manifesto h3 {
@@ -770,7 +832,7 @@
     font-size: 6px;
     padding: 6px;
   }
-  .journal-visual > .visual {
+  .journal-visual > img {
     height: 225px;
   }
   .journal-page h3 {
@@ -906,79 +968,19 @@
     border-radius: 4px;
     overflow: hidden;
   }
-  .journal-mobile-visual > .visual {
+  .journal-mobile-visual img {
     height: 150px;
   }
   .journal-project-bottom {
     bottom: 0;
   }
   .journal-project-bottom > a {
-    font-size: 8px;
+    min-height: 38px;
+    padding: 0 11px;
+    font-size: 10px;
   }
   .journal-project-bottom > span {
     font-size: 5px;
-  }
-  .journal-mobile-visual .mock-greeting {
-    margin-top: 8px;
-  }
-  .journal-mobile-visual .mock-greeting small,
-  .journal-mobile-visual .mock-stats em {
-    display: none;
-  }
-  .journal-mobile-visual .mock-table {
-    display: none;
-  }
-  .journal-mobile-visual .mock-brand {
-    margin-bottom: 10px;
-  }
-  .journal-mobile-visual .mock-nav {
-    padding: 6px;
-  }
-  .journal-mobile-visual .visual-caption {
-    display: none;
-  }
-  .journal-mobile-visual .mock-sidebar-bottom {
-    display: none;
-  }
-  .journal-mobile-visual .dev-content {
-    padding: 12px;
-  }
-  .journal-mobile-visual .dev-heading {
-    font-size: 10px;
-  }
-  .journal-mobile-visual .dev-question {
-    padding: 7px 0;
-  }
-  .journal-mobile-visual .dev-question:nth-of-type(n + 3),
-  .journal-mobile-visual .dev-side-bottom {
-    display: none;
-  }
-  .journal-mobile-visual .dev-logo {
-    margin-bottom: 10px;
-  }
-  .journal-mobile-visual .dev-side p {
-    padding: 5px 0;
-  }
-  .journal-mobile-visual .market-intro {
-    margin-top: 10px;
-  }
-  .journal-mobile-visual .market-intro h3 {
-    font-size: 21px;
-  }
-  .journal-mobile-visual .market-intro p,
-  .journal-mobile-visual .market-metrics {
-    display: none;
-  }
-  .journal-mobile-visual .market-chart {
-    top: 45px;
-    height: 90px;
-  }
-  .journal-mobile-visual .chart-bars {
-    height: 37px;
-    margin-top: 5px;
-  }
-  .journal-mobile-visual .chart-axis {
-    margin-top: 3px;
   }
   .journal-cover-title h3 {
     font-size: 43px;
@@ -1178,7 +1180,7 @@
   .journal-cover-title h3 {
     font-size: 33px;
   }
-  .journal-visual > .visual {
+  .journal-visual > img {
     height: 180px;
   }
 }
@@ -1235,7 +1237,7 @@
   .journal-mobile-visual {
     margin-top: 12px;
   }
-  .journal-mobile-visual > .visual {
+  .journal-mobile-visual img {
     height: 115px;
   }
   .journal-cover-title h3 {
@@ -1285,7 +1287,7 @@
   z-index: 1;
 }
 @media (max-width: 720px) {
-  .journal-mobile-visual > .visual {
+  .journal-mobile-visual img {
     height: 110px;
   }
   .journal-project h3 {

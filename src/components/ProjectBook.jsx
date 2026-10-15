@@ -5,6 +5,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   BookOpen,
+  Images,
   MoveDown,
   RotateCcw,
 } from "lucide-react";
@@ -14,9 +15,10 @@ import {
   pageScrollTarget,
   scrollProgress,
 } from "../lib/bookProgress.mjs";
+import ProjectGalleryModal from "./ProjectGalleryModal";
 import "./project-book.css";
 
-function JournalPage({ page, side, projects, renderVisual, goTo }) {
+function JournalPage({ page, side, projects, openGallery, goTo }) {
   const last = projects.length + 2;
   const project = projects[page - 2];
   return (
@@ -97,7 +99,23 @@ function JournalPage({ page, side, projects, renderVisual, goTo }) {
             ))}
           </div>
           <div className="journal-mobile-visual">
-            {renderVisual(project.theme)}
+            <button
+              type="button"
+              className="journal-image-button"
+              onClick={() => openGallery(project)}
+              aria-label={`Open ${project.name} image gallery`}
+            >
+              <img
+                src={project.images[0]}
+                alt={`${project.name} preview`}
+                loading="lazy"
+                decoding="async"
+              />
+              <span className="journal-visual-badge">
+                <Images size={12} />
+                {project.images.length} images
+              </span>
+            </button>
           </div>
           <div className="journal-project-bottom">
             <span>PRODUCT / CONCEPT STUDY</span>
@@ -113,7 +131,23 @@ function JournalPage({ page, side, projects, renderVisual, goTo }) {
             <span>{project.name}</span>
             <span>INTERFACE EXPLORATION ↗</span>
           </div>
-          <div className="journal-visual">{renderVisual(project.theme)}</div>
+          <button
+            type="button"
+            className="journal-visual"
+            onClick={() => openGallery(project)}
+            aria-label={`Open ${project.name} image gallery`}
+          >
+            <img
+              src={project.images[0]}
+              alt={`${project.name} preview`}
+              loading="lazy"
+              decoding="async"
+            />
+            <span className="journal-visual-badge">
+              <Images size={12} />
+              {project.images.length} images
+            </span>
+          </button>
           <div className="journal-preview-footer">
             <span>
               Thoughtful by design.
@@ -183,11 +217,12 @@ function JournalPage({ page, side, projects, renderVisual, goTo }) {
   );
 }
 
-export default function ProjectBook({ projects, renderVisual }) {
+export default function ProjectBook({ projects }) {
   const sectionRef = useRef(null);
   const shellRef = useRef(null);
   const dragRef = useRef(null);
   const [progress, setProgress] = useState(0);
+  const [galleryProject, setGalleryProject] = useState(null);
   const [mobile, setMobile] = useState(
     () => window.matchMedia("(max-width:720px)").matches
   );
@@ -280,6 +315,7 @@ export default function ProjectBook({ projects, renderVisual }) {
       if (
         !section ||
         event.defaultPrevented ||
+        document.querySelector('[role="dialog"]') ||
         event.ctrlKey ||
         event.altKey ||
         event.metaKey
@@ -366,7 +402,7 @@ export default function ProjectBook({ projects, renderVisual }) {
       page={number}
       side={side}
       projects={projects}
-      renderVisual={renderVisual}
+      openGallery={setGalleryProject}
       goTo={goTo}
     />
   );
@@ -572,6 +608,12 @@ export default function ProjectBook({ projects, renderVisual }) {
           {labels[state.active]} — chapter {state.active + 1} of {last + 1}
         </span>
       </div>
+      {galleryProject && (
+        <ProjectGalleryModal
+          project={galleryProject}
+          onClose={() => setGalleryProject(null)}
+        />
+      )}
     </section>
   );
 }
